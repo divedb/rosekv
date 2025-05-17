@@ -1,0 +1,13 @@
+kiwi_cc_test(
+  NAME
+  segment_test
+  HDRS
+  ${GTEST_INCLUDE_DIR}
+  ${ROSEKV_INCLUDE_DIR}
+  SRCS
+  "wal/segment_test.cc"
+  COPTS
+  ${ROSEKV_TEST_COPTS}
+  DEPS
+  gtest
+  gtest_main)
