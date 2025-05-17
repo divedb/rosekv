@@ -1,0 +1,3 @@
+[submodule "third_party/kiwi"]
+	path = third_party/kiwi
+	url = https://github.com/divedb/kiwi.git
