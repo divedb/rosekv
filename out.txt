@@ -1,0 +1,20 @@
+Running main() from /Users/zlh/Desktop/googletest/googletest/src/gtest_main.cc
+[==========] Running 4 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 4 tests from Segment
+[ RUN      ] Segment.WriteFullInSingleBlock
+[       OK ] Segment.WriteFullInSingleBlock (2 ms)
+[ RUN      ] Segment.WriteFullInMultipleBlocks
+[       OK ] Segment.WriteFullInMultipleBlocks (26 ms)
+[ RUN      ] Segment.WriteLargeData
+[       OK ] Segment.WriteLargeData (1 ms)
+[ RUN      ] Segment.WriteRandomData
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+I20250523 21:03:42.797249 0x7ff8533d7dc0 segment.hh:222] Padding size: 7
+I20250523 21:03:43.695839 0x7ff8533d7dc0 segment.hh:222] Padding size: 2
+[       OK ] Segment.WriteRandomData (2043 ms)
+[----------] 4 tests from Segment (2073 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 1 test suite ran. (2073 ms total)
+[  PASSED  ] 4 tests.

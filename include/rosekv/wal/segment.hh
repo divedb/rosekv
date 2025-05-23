@@ -110,6 +110,8 @@ class Segment {
     std::string data;
 
     while (true) {
+      offset = GetAlignedReadOffset(offset);
+
       Chunk chunk = Decode(offset);
       auto type = chunk.header.type;
 
@@ -215,9 +217,9 @@ class Segment {
       auto padding = kiwi::IOBuf::Create(sz);
       padding->Append(sz);
       offset_ += sz;
-      padding->AppendToChain(std::move(chunk));
+      chunk->AppendToChain(std::move(padding));
 
-      return padding;
+      LOG(INFO) << "Padding size: " << sz;
     }
 
     return chunk;
@@ -226,8 +228,6 @@ class Segment {
   Chunk Decode(Offset offset) {
     ChunkHeader header;
     char buf[kChunkHeaderSize];
-
-    offset = GetAlignedReadOffset(offset);
 
     // Read the chunk header.
     CHECK_EQ(kChunkHeaderSize, file_.Read(offset, buf, sizeof(buf)));
