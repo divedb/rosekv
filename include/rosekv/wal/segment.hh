@@ -3,6 +3,7 @@
 #include <glog/logging.h>
 
 #include <array>
+#include <cstdlib>
 #include <iostream>
 #include <kiwi/io/file.hh>
 #include <kiwi/io/iobuf.hh>
@@ -52,6 +53,14 @@ class Segment {
   static constexpr int kChunkHeaderSize = sizeof(ChunkHeader);
   static constexpr int kMaxBlockSize = 32768;
   static constexpr int kMaxPayLoad = kMaxBlockSize - kChunkHeaderSize;
+
+  static int64_t ComputeRequiredSpace(Slice data) {
+    // TODO(gc): add checked_cast.
+    auto [nblocks, remain] = std::div(data.size(), kMaxPayLoad);
+
+    return nblocks * kMaxBlockSize + remain +
+           (remain == 0 ? 0 : kChunkHeaderSize);
+  }
 
   /// Constructs a Segment object, opening the specified file.
   ///
@@ -147,6 +156,9 @@ class Segment {
   std::string GetErrorDetail() const {
     return kiwi::File::ErrorToString(file_.ErrorDetails());
   }
+
+  /// \return The current size of the segment in bytes.
+  constexpr std::size_t Size() const { return offset_; }
 
  private:
   static Offset GetAlignedReadOffset(Offset offset) {
